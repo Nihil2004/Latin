@@ -1,0 +1,57 @@
+import random
+
+class Flashcards:
+    def __init__(self):
+        self.flashcards = {}
+
+    def add_flashcard(self, word, translation):
+        self.flashcards[word] = translation
+
+    def review_flashcards(self):
+        if not self.flashcards:
+            print("No flashcards available.")
+            return
+        
+        flashcard_items = list(self.flashcards.items())
+        random.shuffle(flashcard_items)
+        
+        for word, translation in flashcard_items:
+            input("Press Enter to reveal the translation of '{}': ".format(word))
+            print("Translation: {}".format(translation))
+            user_input = input("Did you know this word already? (yes/no): ")
+            
+            if user_input.lower() == 'no':
+                self.add_flashcard(word, translation)
+            print()
+
+def main():
+    flashcards = Flashcards()
+
+    # Adding some sample flashcards
+    flashcards.add_flashcard("legere", "Read")
+    flashcards.add_flashcard("scribere", "Write")
+    flashcards.add_flashcard("audire", "Listen")
+
+    while True:
+        print("Latin Language Learning Flashcards")
+        print("1. Add Flashcard")
+        print("2. Review Flashcards")
+        print("3. Quit")
+        
+        choice = input("Select an option: ")
+        
+        if choice == '1':
+            word = input("Enter the Latin word: ")
+            translation = input("Enter the English translation: ")
+            flashcards.add_flashcard(word, translation)
+        elif choice == '2':
+            flashcards.review_flashcards()
+        elif choice == '3':
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please select a valid option.")
+        print()
+
+if __name__ == "__main__":
+    main()
